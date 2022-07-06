@@ -88,9 +88,9 @@ class WordExtractor:
     def _add_kw_to_dict(self, word: str, source: str, sentence: str) -> None:
         """Adds data to self.keyword_list
         Args:
-            word (str): _description_
-            source (str): _description_
-            sentence (str): _description_
+            word (str): a key word
+            source (str): a document a key word is from
+            sentence (str): a sentence a key word is from
         """
         if self.keyword_list.get(word):
             self.keyword_list[word]['count'] += 1
