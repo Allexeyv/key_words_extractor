@@ -26,15 +26,14 @@ class WordExtractor:
         lang: str = 'en',
         num_of_keywords: int = 3,
         keyword_limit_in_final_table: int = 3,
-    ):
-        self.max_ngram_size = 1
-        self.deduplication_threshold = 0.9
-        self.custom_kw_extractor = yake.KeywordExtractor(
-            lan=lang,
-            n=self.max_ngram_size,
-            dedupLim=self.deduplication_threshold,
-            top=num_of_keywords,
-        )
+        max_ngram_size: int = 1,
+        deduplication_threshold: float = 0.9,
+    ):  
+        self.max_ngram_size = max_ngram_size
+        self.lang = lang
+        self.num_of_keywords = num_of_keywords
+        self.deduplication_threshold = deduplication_threshold
+
         self.keyword_limit_in_result = keyword_limit_in_final_table
         self.keyword_list = {}
         self.keyword_list_filtered = {}
@@ -45,6 +44,12 @@ class WordExtractor:
             'and', 'thing', 'told', 'thought', 'changed', 'words', 'fact',
         ]
         # fmt: on
+
+    @property
+    def custom_kw_extractor(self):
+        return yake.KeywordExtractor(lan=self.lang, n=self.max_ngram_size, 
+        dedupLim=self.deduplication_threshold, top=self.num_of_keywords,
+        )
 
     def _clean_text(self, text: str) -> str:
         """Prepares text for the future operations.
